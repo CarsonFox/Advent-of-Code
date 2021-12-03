@@ -11,7 +11,7 @@ function day2()
   decode(::Val{:down}, x) = [0, x]
   decode(::Val{:up}, x) = [0, -x]
 
-  ans = reduce(*, sum([decode(cmd, x) for (cmd, x) in input]))
+  ans = prod(sum([decode(cmd, x) for (cmd, x) in input]))
   println(ans)
 
   #Part 2

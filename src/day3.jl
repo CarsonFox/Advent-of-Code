@@ -3,10 +3,11 @@ function day3()
   avg = length(input) ÷ 2
 
   shift_add(acc, x) = acc << 1 + x
+  decode_binary(digits) = foldl(shift_add, digits)
 
   input_sum = sum(input)
-  γ = foldl(shift_add, [x > avg ? 1 : 0 for x in input_sum])
-  ϵ = foldl(shift_add, [x ≤ avg ? 1 : 0 for x in input_sum])
+  γ = decode_binary([x > avg ? 1 : 0 for x in input_sum])
+  ϵ = decode_binary([x ≤ avg ? 1 : 0 for x in input_sum])
 
   println(γ * ϵ)
 
@@ -29,8 +30,8 @@ function day3()
     end
   end
 
-  oxygen_rating = foldl(shift_add, rating(input, oxygen_criteria))
-  CO2_rating = foldl(shift_add, rating(input, CO2_criteria))
+  oxygen_rating = decode_binary(rating(input, oxygen_criteria))
+  CO2_rating = decode_binary(rating(input, CO2_criteria))
 
   println(oxygen_rating * CO2_rating)
 end

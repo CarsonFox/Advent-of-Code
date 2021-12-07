@@ -19,17 +19,32 @@ function day4()
 
   function win(marks)
     any(row -> sum(row) == 5, eachrow(marks)) ||
-        any(col -> sum(col) == 5, eachcol(marks))
+    any(col -> sum(col) == 5, eachcol(marks))
   end
 
-  for n in nums
-    for (board, marks) in boards
-      marks[board .== n] .= 1
+  for n ∈ nums, (board, marks) ∈ boards
+    marks[board .== n] .= 1
 
+    if win(marks)
+      println(sum(board[marks .== 0]) * n)
+      break
+    end
+  end
+
+  #Part 2
+  for n ∈ nums
+    for (board, marks) ∈ boards
+      marks[board .== n] .= 1
+    end
+
+    if length(boards) == 1
+      board, marks = first(boards)
       if win(marks)
         println(sum(board[marks .== 0]) * n)
-        return
+        break
       end
+    else
+      boards = filter(pair -> !win(pair[2]), boards) |> collect
     end
   end
 end
